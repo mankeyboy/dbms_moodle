@@ -61,7 +61,7 @@ class Student(Person):
 		('PH','Physics'),
 		)
 	)
-	
+
 
 class Faculty(Person):
 	department = models.CharField(max_length = 2, choices = (
