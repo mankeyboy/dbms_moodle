@@ -20,8 +20,9 @@ from django.contrib import admin
 urlpatterns = [
 	url(r'^$',include('app.urls')),
     url(r'^admin/', admin.site.urls),
-    url(r'^signup/','app.views.studentSignUp'),
+    url(r'^signup/',include('app.urls')),
     url(r'^login/','app.views.loginStudent'),
     url(r'^studenthome/','app.views.studenthome',name='studenthome'),
+    url(r'^offercourse/','app.views.offerCourse',name='offercourse'),
 
 ]

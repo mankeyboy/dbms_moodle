@@ -23,7 +23,7 @@ class Person(models.Model):
 	name = models.CharField(max_length = 50)
 	email = models.EmailField(unique=True)
 	phone = models.BigIntegerField(unique=True)							
-	address = models.CharField(max_length = 150)
+	address = models.CharField(max_length = 150, null = True, blank = True)
 	dob = models.DateField()
 	class Meta:
 		abstract = True
@@ -64,6 +64,7 @@ class Student(Person):
 
 
 class Faculty(Person):
+	institute = models.CharField(max_length=200)
 	department = models.CharField(max_length = 2, choices = (
 		('AE','Aerospace Engineering'),
 		('AG','Agricultural & Food Engineering'),
@@ -87,6 +88,7 @@ class Faculty(Person):
 		)
 	)
 
+
 class Admin(Person):
 	# Note : There won't be any requirement of these many details for the admin.
 	# So better, we can shift some attributes from Person to Student and Faculty Classes.
@@ -101,13 +103,13 @@ class Course(models.Model):
 	fees = models.IntegerField()
 	durationWeeks = models.IntegerField()
 	faculty = models.ManyToManyField(Faculty)
-	student = models.ManyToManyField(Student)
-	pre_requisites = models.ForeignKey('self', on_delete = models.CASCADE)
+	student = models.ManyToManyField(Student, null = True, blank=True)
+	pre_requisites = models.ForeignKey('self', blank=True, null = True, on_delete = models.CASCADE)
 
 class Calendar(models.Model):
 	course = models.ForeignKey(Course, on_delete = models.CASCADE)
 	date = models.DateField()
-	content = models.CharField(max_length = 3000)
+	content = models.CharField(max_length = 3000, null = True)
 	class Meta:
 		unique_together = ('course','date')
 
