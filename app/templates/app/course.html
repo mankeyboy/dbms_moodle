@@ -1,0 +1,46 @@
+<!-- <!DOCTYPE HTML>
+<html>
+    <head>
+        <title> COURSE DESCRIPTION </title>
+    </head>
+
+    <body>
+        {% for detail in course %}
+
+            <h3>Course_id :{{detail.course_id}} </h3>
+            <h3>Name :{{detail.name}} </h3>
+            <h3>Start Date: {{detail.date}} </h3>
+            <h3>Credits: {{detail.credits}} </h3>
+            <h3>Fees :  {{detail.fees}} </h3>
+            <h3> SYLLABUS:{{detail.syllabus}}</h3>
+            <li><a href="/register/{{detail.course_id}}/">Register</a></li>
+        {% endfor %}
+
+        
+    </body>
+
+</html> -->
+
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title> COURSE DESCRIPTION </title>
+    </head>
+
+    <body>
+        {% for course_ in course %}
+            <div style="background-color:rgb(0,81,118); color:white; padding:20px;">
+                <h3>Course_id :{{course_.course_id}} </h3>
+                <h3>Course Name :{{course_.name}} </h3>
+                <h3>Start Date: {{course_.date}} </h3>
+                <h3>Credits: {{course_.credits}} </h3>
+                <h3>Fees :  {{course_.fees}} </h3>
+                <h3> SYLLABUS:{{course_.syllabus}}</h3>
+                 <li><a href="/register/{{detail.course_id}}/">Register</a></li>
+             </div>>
+        {% endfor %}    
+
+       
+    </body>
+
+</html>

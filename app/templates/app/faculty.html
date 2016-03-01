@@ -1,0 +1,21 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title> COURSE DESCRIPTION </title>
+    </head>
+
+    <body>
+        {% for detail in faculty %}
+        
+            <h3>Name :{{detail.name}} </h3>
+            <h3>Email id: {{detail.email}} </h3>
+            <h3>Contact no: {{detail.phone}} </h3>
+            <h3>Institute :  {{detail.institute}} </h3>
+            <h3>Department:{{detail.department}}</h3>
+
+        {% endfor %}
+
+        <li><a href="/course/">Register</a></li>
+    </body>
+
+</html>

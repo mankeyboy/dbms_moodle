@@ -1,27 +1,98 @@
-<!DOCTYPE HTML>
-<html>
-    <head>
-        <title> STUDENT HOME PAGE </title>
-    </head>
+{% load staticfiles %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!--
+Design by Free CSS Templates
+http://www.freecsstemplates.org
+Released for free under a Creative Commons Attribution 2.5 License
+-->
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>Cousera</title>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<link rel="stylesheet" type="text/css" href="/static/admin/css/default.css" />
+</head>
+<body>
+<div id="menu">
+    <ul>
+        <li class="first"><a href="/" id="menu1" accesskey="1" title="">Homepage</a></li>
+        <li><a href="/faculty/" id="menu2" accesskey="2" title="">Faculty</a></li>
+        <li><a href="/courses/" id="menu3" accesskey="3" title="">Courses</a></li>
+        <li><a href="#" id="menu4" accesskey="4" title="">About</a></li>
+        <li><a href="#" id="menu5" accesskey="5" title="">Contact</a></li>
+        <li><a href="/signup/faculty/" id="menu6" accesskey="6" title="">Faculty Signup</a></li>
+        <li><a href="/signup/student/" id="menu7" accesskey="7" title="">Student Signup</a></li>
+        <li><a href="/login/student/" id="menu8" accesskey="8" title="">Signin</a></li>
+    </ul>
+</div>
+<div id="logo">
+    <h1><a href="#">Coursera</a></h1>
+</div>
+<div id="content">
+    <div id="colA">
+        <div id="welcome" class="boxedA">
+            <h2>Welcome to Coursera!</h2>
+            <p><strong>Coursera</strong> is an educational site shaping your dreams!! Enjoy :)</p>
+        </div>
+        <div id="news" class="boxedA">
+            <h2>Notice Board </h2>
+            <ul>
+                <li>
+                    <h3>26th February 2007</h3>
+                    <p>Curabitur sit amet nulla. Nam in massa. Sed vel tellus. Curabitur sem urna, consequat vel, suscipit in, mattis placerat, nulla. Sed ac leo. Pellentesque imperdiet. Donec placerat odio vel elit. Nullam ante orci, pellentesque eget, tempus quis, ultrices in, est.</p>
+                    <p class="more"><a href="#">Read More</a></p>
+                </li>
+                <li>
+                    <h3>19th February 2007</h3>
+                    <p>In posuere eleifend odio. Quisque semper augue mattis wisi amet. Maecenas ligula. Pellentesque viverra vulputate enim. Aliquam erat volutpat. Pellentesque tristique ante ut risus. Quisque dictum. Integer nisl risus, sagittis convallis, rutrum id elementum congue.</p>
+                    <p class="more"><a href="#">Read More</a></p>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div id="colB">
+        <div class="boxedB">
+            <!-- <h2>Registered Courses</h2> -->
+            <!-- <ul> -->
+                <!-- {% for detail in course_list %} -->
+                    <!-- <li><a href="#">{{detail.name}}</a></li> -->
+                    <!-- <h3>{{ detail.name }}</h3> -->
+                <!-- {% endfor %} -->
+                <!-- <li><a href="#">Maecenas luctus lectus</a></li>
+                <li><a href="#">Etiam rhoncus volutpat</a></li>
+                <li><a href="#">Donec dictum metus in</a></li>
+                <li><a href="#">Integer gravida nibh</a></li>
+                <li><a href="#">Etiam posuere augue sit</a></li>
+                <li><a href="#">Mauris vulputate dolor</a></li>
+                <li><a href="#">Nulla luctus eleifend</a></li>
+                <li><a href="#">Praesent scelerisque</a></li>
+                <li><a href="#">Ut nonummy rutrum sem</a></li>
+                <li><a href="#">Pellentesque tempus quam</a></li>
+             </ul> -->
+        </div>
+        <div class="boxedC">
+            <h2>All courses offered</h2>
+            <ul>
 
-    <body>
-        <h1>Registered courses</h1>
-        {% for detail in course_list %}
-            <h3>{{ detail.name }}</h3>
-        {% endfor %}
+                {% for detail in course_offered_list %}
+                    <li><a href="/course/{{detail.course_id}}/">{{detail.name}}</a></li>
+                    <!-- <h3>{{ detail.name }}</h3> -->
+                {% endfor %}
+                <!-- <li><a href="#">Donec dictum metus in</a></li>
+                <li><a href="#">Integer gravida nibh</a></li>
+                <li><a href="#">Etiam posuere augue sit</a></li>
+                <li><a href="#">Mauris vulputate dolor</a></li>
+                <li><a href="#">Nulla luctus eleifend</a></li>
+                <li><a href="#">Praesent scelerisque</a></li>
+                <li><a href="#">Ut nonummy rutrum sem</a></li>
+                <li><a href="#">Pellentesque tempus quam</a></li>
+                <li><a href="#">Fusce ultrices fringilla</a></li>
+                <li><a href="#">Praesent mattis condimentum</a></li>
+             --></ul>
+        </div>
+    </div>
+</div>
 
-        <h1>Couses Calender</h1>
-        {% for detail in course_calenders %}
-            <h3>{{detail.course.name}} : {{detail.date}} </h3>
-            <p> {{detail.content}}</p>
-        {% endfor %}
-
-        <h1>Courses Offered</h1>
-        {% for detail in course_offered_list %}
-            <h3>{{detail.name}}</h3>
-        {% endfor %}
-
-        <h1>
-    </body>
-
+</body>
 </html>

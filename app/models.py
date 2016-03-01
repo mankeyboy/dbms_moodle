@@ -17,7 +17,6 @@ No relationship tables added till now.
 # '''
 
 class Person(models.Model):
-	#ID = models.CharField(max_length = 10,primary_key = True) 	# Like S1, F4, A1 etc if not abstract. If it is abstract, we can make it as integer.
 	ID = models.AutoField(primary_key=True)
 	password = models.CharField(max_length = 20)
 	name = models.CharField(max_length = 50)
@@ -96,7 +95,29 @@ class Admin(Person):
 	pass
 
 class Course(models.Model):
-	course_id = models.CharField(max_length = 10,primary_key = True) #contains dept and year
+	course_id = models.AutoField(primary_key = True)
+	# department = models.CharField(max_length = 2, choices = (
+	# 	('AE','Aerospace Engineering'),
+	# 	('AG','Agricultural & Food Engineering'),
+	# 	('AR','Architecture & Regional Planning'),
+	# 	('BT','Biotechnology'),
+	# 	('CH','Chemical Engineering'),
+	# 	('CY','Chemistry'),
+	# 	('CE','Civil Engineering'),
+	# 	('CS','Computer Science & Engineering'),
+	# 	('EE','Electrical Engineering'),
+	# 	('EC','Electronics & Electrical Communication Engineering'),
+	# 	('GG','Geology & Geophysics'),
+	# 	('HS','Humanities & Social Sciences'),
+	# 	('IE','Industrial & Systems Engineering'),
+	# 	('MA','Mathematics'),
+	# 	('ME','Mechanical Engineering'),
+	# 	('MT','Metallurgical & Materials Engineering'),
+	# 	('MI','Mining Engineering'),
+	# 	('NA','Ocean Engineering & Naval Architecture'),
+	# 	('PH','Physics'),
+	# 	)
+	# )
 	name = models.CharField(max_length = 50)
 	syllabus = models.CharField(max_length = 1000)
 	credits = models.IntegerField()

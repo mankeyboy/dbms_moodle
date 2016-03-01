@@ -18,11 +18,19 @@ from django.conf.urls import url, include
 from django.contrib import admin
 
 urlpatterns = [
-	url(r'^$',include('app.urls')),
+	url(r'^$','app.views.home'),
     url(r'^admin/', admin.site.urls),
     url(r'^signup/',include('app.urls')),
-    url(r'^login/','app.views.loginStudent'),
+    url(r'^login/','app.views.login_user'),
+    url(r'^facultyhome/','app.views.facultyhome',name='facultyhome'),
     url(r'^studenthome/','app.views.studenthome',name='studenthome'),
     url(r'^offercourse/','app.views.offerCourse',name='offercourse'),
-
+    url(r'^student/','app.views.studentSignUp',name = 'studentSignUp'),
+    url(r'^faculty/','app.views.facultySignUp',name = 'facultySignUp'),
+    url(r'^course/(\d+)/','app.views.course',name='course'),
+    url(r'^courses/','app.views.courses',name='courses'),
+    url(r'^faculty_detail/','app.views.faculty',name='faculty'),
+    url(r'^register/(\d+)/','app.views.RegInCourse',name='RegInCourse'),
+    url(r'^editcourse/(\d+)/','app.views.edit_course',name='edit_course'),
+    url(r'^create_content/(\d+)/','app.views.addContent',name='addContent'),
 ]
