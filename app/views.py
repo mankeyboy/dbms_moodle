@@ -1,6 +1,7 @@
 from django.shortcuts import render, render_to_response , HttpResponse
 from forms import *
 from models import *
+from django.contrib import messages
 from django.template import RequestContext
 from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
@@ -46,13 +47,49 @@ def studentSignUp(request):
         
     else:
         form = StudentSignUpForm()
+        print form
         print "Coming there"
         context = {
         "who" : "Student",
         "title":"Register On Coursera",
         "form": form,
         }
+        print render(request,"app/studentSignUp.html",context)
         return render(request,"app/studentSignUp.html",context)
+
+def sendmail(request):
+    print "YO"
+    if request.method=='POST':
+        form = MailForm(request.POST)
+        print form
+        print "yo"
+        if form.is_valid():
+            mail=form.save(commit=False)
+            username=request.user.username
+            #   TheStudent = Student.objects.get(email=username)
+            try:
+                TheStudent = Student.objects.get(email=username)
+                if TheStudent is not None:
+                    mail.notif_from_role='S'
+                    mail.notif_from_id=TheStudent.ID
+                    mail.save()
+                    
+            except:
+                TheFaculty = Faculty.objects.get(email=username)
+                if TheFaculty is not None:
+                    mail.notif_from_role='F'
+                    mail.notif_from_id=TheFaculty.ID
+                    mail.save()
+
+            return HttpResponse("mail sent")
+        else:
+            return HttpResponse("mail not sent .try again")
+    else:
+        form = MailForm()
+        context={
+        "form" :form,
+        }
+        return render(request,"app/sendmail.html",context)
 
 def facultySignUp(request):
     if request.method=='POST':
@@ -61,10 +98,7 @@ def facultySignUp(request):
         if form.is_valid():
             user = User.objects.create_user(form.cleaned_data.get('email'),form.cleaned_data.get('email'),form.cleaned_data.get('password'))
             form.save()
-            roll = Faculty.objects.get(email=form.cleaned_data.get('email'))
-            print type(roll.ID)
-            print roll.ID
-            return HttpResponse("Congrats! You have been registered on Coursera as a faculty.\n Your faculty ID is "+str(roll.ID))
+            return HttpResponse("Your request has been sent" )
         else:
             return HttpResponse("Email Id or Phone no. has been already Registered (Validation Failed)")
         # context = {
@@ -116,6 +150,7 @@ def facultySignUp(request):
 #         return render(request,"app/studentSignUp.html",context)
 
 def login_user(request):
+    # user2 = User.objects.create_user('admin@gmail.com','admin@gmail.com','admin')
     logout(request)
     username = password = ''
     if request.POST:
@@ -123,6 +158,7 @@ def login_user(request):
         password = request.POST['password']
 
         user = authenticate(username=username, password=password)
+        print user
         if user is not None:
             if user.is_active:
                 login(request, user)
@@ -152,7 +188,7 @@ def login_user(request):
 
 def logout_view(request):
     logout(request)
-    HttpResponseRedirect('/')
+    return HttpResponseRedirect('/')
     # Redirect to a success page.
 
 def isStudent(user):
@@ -163,20 +199,6 @@ def isStudent(user):
         return False
     except:
         return False
-
-# @user_passes_test(isStudent,login_url = '/login/student/')
-# def studenthome(request):
-#     if request.method == 'POST':
-#         registered_courses = Course.objects.filter(student__email = 'xyz')
-#         courses_offered = Course.objects.all()
-#         course_info = Calendar.objects.raw('Select * from Calendar where Calendar.course_id in ( select course_id from registered_courses) and Calender.date > datetime.now()')
-#         course_data = {
-#                "course_list" : registered_courses,
-#                "course_offered_list" : courses_offered,
-#                 "course_calendars"    : course_info,
-#         }
-    
-#     return render_to_response('app/home.html', context_instance=RequestContext(request))
 
 
 def isFaculty(user):
@@ -221,74 +243,73 @@ def offerCourse(request):
 @user_passes_test(isStudent,login_url = '/login/student/')
 def studenthome(request):
     print request.user.username
-    students= Student.objects.filter(email=request.user.username)
+    students= Student.objects.get(email=request.user.username)
     registered_courses = Course.objects.filter(student=students)
     courses_offered = Course.objects.all()
     course_info = Calendar.objects.filter(course=registered_courses)
+    mails=Notif.objects.filter(notif_to_id=students.ID).filter(notif_to_role='S')
+    print students.ID
     course_data = {
             "name" : request.user.username,
            "course_list" : registered_courses,
            "course_offered_list" : courses_offered,
             "course_calendars"    : course_info,
+            "mail" : mails,
     }
-
     return render_to_response('app/studenthome.html',course_data)
+
+def adminhome(request):
+    faculty= PendingFaculty.objects.all()
+    faculty2= PendingFaculty.objects.all()
+    for detail in faculty:
+        fac=Faculty(ID=detail.ID,password=detail.password,name=detail.name,email=detail.email,phone=detail.phone,address=detail.address,dob=detail.dob,institute=detail.institute,department=detail.department)
+        fac.save()
+        detail.delete()
+    course_data={
+        "faculty" : faculty2,
+    }
+    return render_to_response('app/adminhome.html',course_data)
 
 @user_passes_test(isFaculty,login_url = '/login/faculty')
 def facultyhome(request):
     print request.user.username
-    faculty= Faculty.objects.filter(email=request.user.username)
+    faculty= Faculty.objects.get(email=request.user.username)
     course=Course.objects.filter(faculty=faculty)
-
+    mails=Notif.objects.filter(notif_to_id=faculty.ID).filter(notif_to_role='F')
     course_data = {
            "name" : request.user.username,
            "course_list" : course,
+           "mail" : mails,
     }
 
     return render_to_response('app/facultyhome.html',course_data)
 
 
-@user_passes_test(isFaculty,'/')
-def addContent(request,cid):
-    try:
-        fac = Faculty.objects.filter(course__course_id=cid).filter(email=request.user.username)
-        if fac is not None:
-            print "******************************************************************Course and Faculty match : Can edit course******************************************************************"
-            
-            if request.method=='POST':
-                form1 = ContentForm(request.POST)
-                form2 = QuestionForm(request.POST)
-                #Add to database
-            else:
-                form = ContentForm()
-                #do something else
-            course_data = {
-                #add info
-                "heading" : "Edit Course"
-            } 
-            return render_to_response('app/edit_course.html',course_data)
-        else:
-            return HttpResponseRedirect('/')
-    except:
-        return HttpResponseRedirect('/')
 
 
-@user_passes_test(isFaculty,'/')
+
+@user_passes_test(isFaculty,login_url = '/login/faculty')
 def edit_course(request,cid):
-    try:
-        fac = Faculty.objects.filter(course__course_id=cid).filter(email=request.user.username)
-        if fac is not None:
-            print "******************************************************************Course and Faculty match : Can edit course******************************************************************"
-            course_data = {
-                #add info
-                "heading" : "Edit Course"
-            } 
-            return render_to_response('app/edit_course.html',course_data)
-        else:
-            return HttpResponseRedirect('/')
-    except:
-        return HttpResponseRedirect('/')
-    
+    print "YOOOOOO"
+    if request.method=='POST':
+        form = CalendarForm(request.POST)
+        if form.is_valid():
+            print "POOOOOOOOOO"
+            course=Course.objects.get(course_id=cid)
+            edit=form.save(commit=False)
+            edit.course=course
+            edit.save()
+            return HttpResponseRedirect('/facultyhome')  
+    else:
+        print "COOOOOOOOOOOOOOO"
+        form = CalendarForm()
+        context = {
+        "form": form,
+        }
+        #print render(request,"app/editcourse.html",context)
+        return render(request,"app/editcourse.html",context)
+
+
 @user_passes_test(isStudent,'/')
 def RegInCourse(request,cid):
     course = Course.objects.get(course_id=cid)
@@ -298,7 +319,7 @@ def RegInCourse(request,cid):
     print "stud = ",
     print stud 
     course.student.add(stud)
-    return HttpResponseRedirect('/')
+    return HttpResponseRedirect('/studenthome')
 
 
 
@@ -311,12 +332,15 @@ def courses(request):
 
 def course(request, num):
     print num
-    course = Course.objects.filter(course_id=num)
-    print course
+    course = Course.objects.get(course_id=num)
+    calendar = Calendar.objects.filter(course=course)   
     course_data={
         "course" : course,
+        "calendar" : calendar,
     }
-    return render_to_response('app/course.html',course_data)
+    for detail in calendar:
+        print detail.content
+    return render_to_response('app/coursedetail.html',course_data)
 
 def faculty(request):
     faculty = Faculty.objects.all()
@@ -325,38 +349,38 @@ def faculty(request):
     }
     return render_to_response('app/faculty.html',faculty_data)
 
-def addContent(request,cid):
-    user = request.user
-    QuestionFormSet = formset_factory(Question,formset=BaseQuestionFormSet)
-    if request.method == 'POST':
-        calendar_form = CalendarForm(request.POST)
-        question_formset = QuestionFormSet(request.POST)
+# def addContent(request,cid):
+#     user = request.user
+#     QuestionFormSet = formset_factory(Question,formset=BaseQuestionFormSet)
+#     if request.method == 'POST':
+#         calendar_form = CalendarForm(request.POST)
+#         question_formset = QuestionFormSet(request.POST)
 
-        if calendar_form.is_valid() and question_formset.is_valid():
-            # Save user info
-            # user.first_name = calendar_form.cleaned_data.get('date')
-            # user.last_name = calendar_form.cleaned_data.get('content')
-            cobj = calendar_form.save(commit=False)
-            cobj.save()
-            cours = Course.objects.get(course_id=cid)
-            cobj.course.add(cours)
+#         if calendar_form.is_valid() and question_formset.is_valid():
+#             # Save user info
+#             # user.first_name = calendar_form.cleaned_data.get('date')
+#             # user.last_name = calendar_form.cleaned_data.get('content')
+#             cobj = calendar_form.save(commit=False)
+#             cobj.save()
+#             cours = Course.objects.get(course_id=cid)
+#             cobj.course.add(cours)
 
-            # Now save the data for each form in the formset
-            new_questions = []
+#             # Now save the data for each form in the formset
+#             new_questions = []
 
-            for question_form in question_formset:
-                text = question_form.cleaned_data.get('anchor')
-                url = question_form.cleaned_data.get('url')
+#             for question_form in question_formset:
+#                 text = question_form.cleaned_data.get('anchor')
+#                 url = question_form.cleaned_data.get('url')
 
 
-                obj = question_form.save(commit=False)
-                calobj = calendar_form.save(commit=False)
-                print request.user.username
-                fac = Faculty.objects.get(email = request.user.username)
-                print fac
-                obj.save()
-                obj.calendar.add(calobj)
-                obj.save()
+#                 obj = question_form.save(commit=False)
+#                 calobj = calendar_form.save(commit=False)
+#                 print request.user.username
+#                 fac = Faculty.objects.get(email = request.user.username)
+#                 print fac
+#                 obj.save()
+#                 obj.calendar.add(calobj)
+#                 obj.save()
 
 
             # try:
@@ -372,16 +396,16 @@ def addContent(request,cid):
             #     messages.error(request, 'There was an error saving your profile.')
             #     return redirect(reverse('profile-settings'))
 
-    else:
-        calendar_form = CalendarForm()
-        question_formset = QuestionFormSet()
+    # else:
+    #     calendar_form = CalendarForm()
+    #     question_formset = QuestionFormSet()
 
-    context = {
-        'profile_form': calendar_form,
-        'link_formset': question_formset,
-    }
+    # context = {
+    #     'profile_form': calendar_form,
+    #     'link_formset': question_formset,
+    # }
 
-    return render(request, 'app/course_content.html', context)
+    # return render(request, 'app/course_content.html', context)
 
 
 # class AddContentView(CreateView):

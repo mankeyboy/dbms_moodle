@@ -1,14 +1,6 @@
-
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<!--
-Design by Free CSS Templates
-http://www.freecsstemplates.org
-Released for free under a Creative Commons Attribution 2.5 License
--->
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-
+<!-- saved from url=(0080)file:///Users/poorvadixit/Downloads/coursera2/app/templates/app/facultyhome.html -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
 <style>
 
 /*
@@ -44,7 +36,9 @@ a:hover {
 }
 
 /* Menu */
-
+#user h2{
+    margin-left: 1000px;
+}
 #menu {
     height: 62px;
     margin: 0 auto;
@@ -60,9 +54,7 @@ a:hover {
 #menu li {
     display: inline;
 }
-#user h2{
-    margin-left: 1000px;
-}
+
 #menu a {
     display: block;
     float: right;
@@ -151,7 +143,7 @@ a:hover {
 
 #colA {
     float: right;
-    width: 1100px;
+    width: 800px;
     padding: 0 30px 0 0;
 }
 
@@ -163,7 +155,7 @@ a:hover {
 /* BoxedA */
 
 .boxedA {
-    width:1100px;
+    width:800px;
     margin-top: 20px;
 
 }
@@ -213,6 +205,7 @@ a:hover {
 }
 
 .boxedB h2 {
+    
     height: 35px;
     padding: 25px 0 0 21px;
     border-bottom: 1px solid #FFFFFF;
@@ -309,11 +302,6 @@ a:hover {
     list-style-type: square;
 }
 
-#course {
-    border-top:2px solid #000000;
-    border-bottom: 2px solid #000000;
-    margin-top: 5px;
-}
 /* Footer */
 
 #footer {
@@ -380,19 +368,32 @@ a:hover {
 </style>
 <!-- <meta http-equiv="content-type" content="text/html; charset=utf-8" /> -->
 <title>Cousera</title>
-<meta name="keywords" content="" />
-<meta name="description" content="" />
-<link rel="stylesheet" type="text/css" href="/static/admin/css/default.css" />
+<meta name="keywords" content="">
+<meta name="description" content="">
+<link rel="stylesheet" type="text/css" href="./Cousera_files/default.css">
 </head>
 <body>
-    
+
+<div id="user">
+    <h2>logged in as {{detail.name}}</h2>
+</div>
+<!-- <div class="dropdown">
+  <button class="dropbtn">Enter</button>
+  <div class="dropdown-content">
+    <li><a href="/signup/faculty/" id="menu6" accesskey="6" title="">Faculty Signup</a></li>
+    <li><a href="/signup/student/" id="menu7" accesskey="7" title="">Student Signup</a></li>
+    <li><a href="/login/student/" id="menu8" accesskey="8" title="">Signin</a></li>
+  </div>
+ -->
 <div id="menu">
     <ul>
-        <li><a href="/faculty/" id="menu2" accesskey="2" title="">Faculty</a></li>
-        <li><a href="/courses/" id="menu3" accesskey="3" title="">Courses</a></li>
-        <li><a href="#" id="menu4" accesskey="4" title="">About</a></li>
-        <li><a href="#" id="menu5" accesskey="5" title="">Contact</a></li>
-        <li class="first"><a href="/" id="menu1" accesskey="1" title="">Coursera</a></li>
+        <li><a href="file:///faculty/" id="menu2" accesskey="2" title="">Faculty</a></li>
+        <li><a href="file:///courses/" id="menu3" accesskey="3" title="">Courses</a></li>
+        <li><a href="file:///Users/poorvadixit/Downloads/coursera2/app/templates/app/facultyhome.html#" id="menu4" accesskey="4" title="">About</a></li>
+        <li><a href="file:///Users/poorvadixit/Downloads/coursera2/app/templates/app/facultyhome.html#" id="menu5" accesskey="5" title="">Contact</a></li>
+        <li class="first"><a href="file:///" id="menu1" accesskey="1" title="">Coursera</a></li>
+        
+        
         
         <!-- <li><a href="/signup/faculty/" id="menu6" accesskey="6" title="">Faculty Signup</a></li> -->
         <!-- <li><a href="/signup/student/" id="menu7" accesskey="7" title="">Student Signup</a></li> -->
@@ -416,22 +417,7 @@ a:hover {
                         <p class="more"><a href="#">Read More</a></p>
                     </li>
                 {% endfor %} -->
-
-        
-            
-
-       
-                {% for detail in faculty %}
-                    <div id="course">
-                        <h3>Name :{{detail.name}} </h3>
-                         <h3>Email id: {{detail.email}} </h3>
-                        <h3>Contact no: {{detail.phone}} </h3>
-                        <h3>Institute :  {{detail.institute}} </h3>
-                        <h3>Department:{{detail.department}}</h3>
-                    </div>
-                {% endfor %}    
-
-                 <!-- <img src="/Users/poorvadixit/Desktop/student-girl_284.jpeg" alt="Mountain View" style="width:1000px;height:600px;"> -->
+                <img src="./Cousera_files/Teacher.jpeg" alt="Mountain View" style="width:600px;height:600px;">
                 <!-- <li>
                     <h3>26th February 2007</h3>
                     <p>Curabitur sit amet nulla. Nam in massa. Sed vel tellus. Curabitur sem urna, consequat vel, suscipit in, mattis placerat, nulla. Sed ac leo. Pellentesque imperdiet. Donec placerat odio vel elit. Nullam ante orci, pellentesque eget, tempus quis, ultrices in, est.</p>
@@ -441,52 +427,53 @@ a:hover {
                     <h3>19th February 2007</h3>
                     <p>In posuere eleifend odio. Quisque semper augue mattis wisi amet. Maecenas ligula. Pellentesque viverra vulputate enim. Aliquam erat volutpat. Pellentesque tristique ante ut risus. Quisque dictum. Integer nisl risus, sagittis convallis, rutrum id elementum congue.</p>
                     <p class="more"><a href="#">Read More</a></p>
-                </li>  -->
+                </li> -->
             </ul>
         </div>
     </div>
-    <!-- <div id="colB">
+    <div id="colB">
         <div class="boxedB">
             <h2>Registered Courses</h2>
             <ul>
-                <!{% for detail in course_list %} -->
+                <!-- {% for detail in course_list %} -->
                     <!-- <li><a href="#">{{detail.name}}</a></li> -->
                     <!-- <h3>{{ detail.name }}</h3> -->
                 <!-- {% endfor %} -->
-                <!-- <li><a href="#">Maecenas luctus lectus</a></li>
-                <li><a href="#">Etiam rhoncus volutpat</a></li>
-                <li><a href="#">Donec dictum metus in</a></li>
-                <li><a href="#">Integer gravida nibh</a></li>
-                <li><a href="#">Etiam posuere augue sit</a></li>
-                <li><a href="#">Mauris vulputate dolor</a></li>
-                <li><a href="#">Nulla luctus eleifend</a></li>
-                <li><a href="#">Praesent scelerisque</a></li>
-                <li><a href="#">Ut nonummy rutrum sem</a></li>
-                <li><a href="#">Pellentesque tempus quam</a></li>
+                <li><a href="file:///Users/poorvadixit/Downloads/coursera2/app/templates/app/facultyhome.html#">Maecenas luctus lectus</a></li>
+                <li><a href="file:///Users/poorvadixit/Downloads/coursera2/app/templates/app/facultyhome.html#">Etiam rhoncus volutpat</a></li>
+                <li><a href="file:///Users/poorvadixit/Downloads/coursera2/app/templates/app/facultyhome.html#">Donec dictum metus in</a></li>
+                <li><a href="file:///Users/poorvadixit/Downloads/coursera2/app/templates/app/facultyhome.html#">Integer gravida nibh</a></li>
+                <li><a href="file:///Users/poorvadixit/Downloads/coursera2/app/templates/app/facultyhome.html#">Etiam posuere augue sit</a></li>
+                <li><a href="file:///Users/poorvadixit/Downloads/coursera2/app/templates/app/facultyhome.html#">Mauris vulputate dolor</a></li>
+                <li><a href="file:///Users/poorvadixit/Downloads/coursera2/app/templates/app/facultyhome.html#">Nulla luctus eleifend</a></li>
+                <li><a href="file:///Users/poorvadixit/Downloads/coursera2/app/templates/app/facultyhome.html#">Praesent scelerisque</a></li>
+                <li><a href="file:///Users/poorvadixit/Downloads/coursera2/app/templates/app/facultyhome.html#">Ut nonummy rutrum sem</a></li>
+                <li><a href="file:///Users/poorvadixit/Downloads/coursera2/app/templates/app/facultyhome.html#">Pellentesque tempus quam</a></li>
              </ul>
         </div>
         <div class="boxedC">
             <h2>All courses offered</h2>
-            <ul> -->
+            <ul>
 
                 <!-- {% for detail in course_offered_list %}
                     <li><a href="/course/{{detail.course_id}}/">{{detail.name}}</a></li>
                     <!<h3>{{ detail.name }}</h3> -->
                 <!-- {% endfor %} --> 
-                <!-- <li><a href="#">Donec dictum metus in</a></li>
-                <li><a href="#">Integer gravida nibh</a></li>
-                <li><a href="#">Etiam posuere augue sit</a></li>
-                <li><a href="#">Mauris vulputate dolor</a></li>
-                <li><a href="#">Nulla luctus eleifend</a></li>
-                <li><a href="#">Praesent scelerisque</a></li>
-                <li><a href="#">Ut nonummy rutrum sem</a></li>
-                <li><a href="#">Pellentesque tempus quam</a></li>
-                <li><a href="#">Fusce ultrices fringilla</a></li>
-                <li><a href="#">Praesent mattis condimentum</a></li>
+                <li><a href="file:///Users/poorvadixit/Downloads/coursera2/app/templates/app/facultyhome.html#">Donec dictum metus in</a></li>
+                <li><a href="file:///Users/poorvadixit/Downloads/coursera2/app/templates/app/facultyhome.html#">Integer gravida nibh</a></li>
+                <li><a href="file:///Users/poorvadixit/Downloads/coursera2/app/templates/app/facultyhome.html#">Etiam posuere augue sit</a></li>
+                <li><a href="file:///Users/poorvadixit/Downloads/coursera2/app/templates/app/facultyhome.html#">Mauris vulputate dolor</a></li>
+                <li><a href="file:///Users/poorvadixit/Downloads/coursera2/app/templates/app/facultyhome.html#">Nulla luctus eleifend</a></li>
+                <li><a href="file:///Users/poorvadixit/Downloads/coursera2/app/templates/app/facultyhome.html#">Praesent scelerisque</a></li>
+                <li><a href="file:///Users/poorvadixit/Downloads/coursera2/app/templates/app/facultyhome.html#">Ut nonummy rutrum sem</a></li>
+                <li><a href="file:///Users/poorvadixit/Downloads/coursera2/app/templates/app/facultyhome.html#">Pellentesque tempus quam</a></li>
+                <li><a href="file:///Users/poorvadixit/Downloads/coursera2/app/templates/app/facultyhome.html#">Fusce ultrices fringilla</a></li>
+                <li><a href="file:///Users/poorvadixit/Downloads/coursera2/app/templates/app/facultyhome.html#">Praesent mattis condimentum</a></li>
             </ul>
-        </div> -->
-    <!-- </div> -->
+        </div>
+    </div>
 </div>
 
-</body>
-</html>
+
+
+</body></html>

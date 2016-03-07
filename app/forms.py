@@ -11,7 +11,7 @@ class StudentSignUpForm(forms.ModelForm):
 
 class FacultySignUpForm(forms.ModelForm):
 	class Meta:
-		model = Faculty
+		model = PendingFaculty
 		fields = ['name','email','password','phone','address','dob','department','institute']
 
 class StudentLogInForm(forms.ModelForm):
@@ -27,15 +27,19 @@ class RegisterCourseForm(forms.ModelForm):
 class CalendarForm(forms.ModelForm):
 	class Meta:
 		model = Calendar
-		fields = ['date','content']
-		exclude = None
+		fields = ['date','content','quiz']
 
-class QuestionForm(forms.ModelForm):
+class MailForm(forms.ModelForm):
 	class Meta:
-		model = Question
-		fields = ['text','op1','op2','op3','op4','answer']
-		exclude = None
+		model = Notif
+		fields = ['notif_to_role','notif_to_id','text']
 
-class BaseQuestionFormSet(BaseFormSet):
-	pass
-# QuestionFormSet = modelformset_factory(Question,fields=None,exclude=None)
+# class QuestionForm(forms.ModelForm):
+# 	class Meta:
+# 		model = Question
+# 		fields = ['text','op1','op2','op3','op4','answer']
+# 		exclude = None
+
+# class BaseQuestionFormSet(BaseFormSet):
+# 	pass
+# # QuestionFormSet = modelformset_factory(Question,fields=None,exclude=None)
