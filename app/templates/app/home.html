@@ -1,4 +1,6 @@
 
+{% load staticfiles %}
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!--
 Design by Free CSS Templates
@@ -7,9 +9,7 @@ Released for free under a Creative Commons Attribution 2.5 License
 -->
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-
 <style>
-
 /*
 Design by Free CSS Templates
 http://www.freecsstemplates.org
@@ -17,7 +17,7 @@ Released for free under a Creative Commons Attribution 2.5 License
 */
 
 body {
-    width:1200;
+    width:1250;
     margin: 0;
     padding: 0;
     background: #FFFFFF;
@@ -44,7 +44,7 @@ a:hover {
 
 /* Menu */
 
-#menu {
+#menu { 
     height: 62px;
     margin: 0 auto;
 }
@@ -59,8 +59,9 @@ a:hover {
 #menu li {
     display: inline;
 }
-#user h2{
-    margin-left: 1000px;
+#user h3 {
+    margin-left: 900px;
+    margin-right: none;
 }
 #menu a {
     display: block;
@@ -376,7 +377,7 @@ a:hover {
 <title>Cousera</title>
 <meta name="keywords" content="" />
 <meta name="description" content="" />
-<link rel="stylesheet" type="text/css" href="/static/admin/css/default.css" />
+<!--<link rel="stylesheet" type="text/css" href="/static/admin/css/default.css" />-->
 </head>
 <body>
 <div class="dropdown">
@@ -385,14 +386,15 @@ a:hover {
     <li><a href="/signup/faculty/" id="menu6" accesskey="6" title="">Faculty Signup</a></li>
     <li><a href="/signup/student/" id="menu7" accesskey="7" title="">Student Signup</a></li>
     <li><a href="/login/student/" id="menu8" accesskey="8" title="">Signin</a></li>
+    <li><a href="/parent/" id="menu8" accesskey="8" title="">Parent Signin</a></li>
   </div>
 </div>
 <div id="menu">
     <ul>
         <li><a href="/faculty/" id="menu2" accesskey="2" title="">Faculty</a></li>
         <li><a href="/courses/" id="menu3" accesskey="3" title="">Courses</a></li>
-        <li><a href="#" id="menu4" accesskey="4" title="">About</a></li>
-        <li><a href="#" id="menu5" accesskey="5" title="">Contact</a></li>
+        <li><a href="/about/" id="menu4" accesskey="4" title="">About</a></li>
+        <li><a href="/contact/" id="menu5" accesskey="5" title="">Contact</a></li>
         <li class="first"><a href="/" id="menu1" accesskey="1" title="">Coursera</a></li>
         
         
@@ -419,7 +421,7 @@ a:hover {
                         <p class="more"><a href="#">Read More</a></p>
                     </li>
                 {% endfor %} -->
-                 <img src="/Users/poorvadixit/Downloads/coursera2/app/static/student-girl_284.jpeg" alt="Mountain View" style="width:1000px;height:600px;">
+                 <img src="{% static "app/images/student-girl_284.jpeg" %}" alt="Mountain View" style="width:1000px;height:600px;">
                 <!-- <li>
                     <h3>26th February 2007</h3>
                     <p>Curabitur sit amet nulla. Nam in massa. Sed vel tellus. Curabitur sem urna, consequat vel, suscipit in, mattis placerat, nulla. Sed ac leo. Pellentesque imperdiet. Donec placerat odio vel elit. Nullam ante orci, pellentesque eget, tempus quis, ultrices in, est.</p>

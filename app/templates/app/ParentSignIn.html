@@ -40,7 +40,7 @@
 
     <!-- Content -->
     <div id="content" class="colM">
-<form class="form-horizontal" name="LoginForm" action="/login/" method="post">
+<form class="form-horizontal" name="LoginForm" action="/parent/" method="post">
         {% csrf_token %}
         {% if next %}
             <input type="hidden" name="next" value="{{ next }}" />
@@ -52,9 +52,9 @@
             </div>
         </div>
         <div class="control-group">
-            <label class="control-label" for="password">Password</label>
+            <label class="control-label" for="dob">dob</label>
             <div class="controls">
-                <input type="password" name="password" id="password" placeholder="Password">
+                <input type="text" name="dob" id="dob" placeholder="dob">
             </div>
         </div>
         <div class="control-group">

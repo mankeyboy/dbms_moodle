@@ -34,12 +34,8 @@ class MailForm(forms.ModelForm):
 		model = Notif
 		fields = ['notif_to_role','notif_to_id','text']
 
-# class QuestionForm(forms.ModelForm):
-# 	class Meta:
-# 		model = Question
-# 		fields = ['text','op1','op2','op3','op4','answer']
-# 		exclude = None
+class ParentSignInForm(forms.ModelForm):
+	class Meta:
+		model=Student
+		fields=['email','dob']
 
-# class BaseQuestionFormSet(BaseFormSet):
-# 	pass
-# # QuestionFormSet = modelformset_factory(Question,fields=None,exclude=None)

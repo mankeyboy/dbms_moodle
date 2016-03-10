@@ -28,8 +28,8 @@ Released for free under a Creative Commons Attribution 2.5 License
     <ul>
         <li><a href="/faculty/" id="menu2" accesskey="2" title="">Faculty</a></li>
         <li><a href="/courses/" id="menu3" accesskey="3" title="">Courses</a></li>
-        <li><a href="/about/" id="menu4" accesskey="4" title="">About</a></li>
-        <li><a href="/contact/" id="menu5" accesskey="5" title="">Contact</a></li>
+        <li><a href="#" id="menu4" accesskey="4" title="">About</a></li>
+        <li><a href="#" id="menu5" accesskey="5" title="">Contact</a></li>
         <li class="first"><a href="/" id="menu1" accesskey="1" title="">Coursera</a></li>
         
         <!-- <li><a href="/signup/faculty/" id="menu6" accesskey="6" title="">Faculty Signup</a></li> -->
@@ -55,13 +55,14 @@ Released for free under a Creative Commons Attribution 2.5 License
                     </li>
                 {% endfor %} -->
                     <div id="course">
-                        {% for detail in calendar %}
-                            <h3>*****************************************************************</h3>
-                            <h3>Date :{{detail.date}} </h3>
-                            <h3>Content : {{detail.content}} </h3>
-                            <h3>Quiz : {{detail.quiz}} </h3>
+                        {% for detail in mail %}
+                        <li>
+                        <h3>******************************************************</h3>
+                        <h3>{{detail.notif_from_role}} Roll no: {{detail.notif_from_id}}</h3>
+                        <p>{{detail.text}}</p>
+                        </li>
                         {% endfor %}
-                        
+                        <h3>*******************************************************</h3>
                     </div>
 
 

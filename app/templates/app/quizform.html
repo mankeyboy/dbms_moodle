@@ -1,48 +1,35 @@
 <!DOCTYPE html>
 
 <html lang="en-us" >
+
 <head>
-<title>Send mail</title>
+<title>Quiz Data</title>
 <link rel="stylesheet" type="text/css" href="/static/admin/css/base.css" />
 <link rel="stylesheet" type="text/css" href="/static/admin/css/login.css" />
 
-
-
-
 <meta name="robots" content="NONE,NOARCHIVE" />
 </head>
-
 
 <body class=" login"
   data-admin-utc-offset="0">
-
 <!-- Container -->
 <div id="container">
-
-    
     <!-- Header -->
     <div id="header">
         <div id="branding">
-        
-<h1 id="site-name"><a href="/admin/">Send mail</a></h1>
-
+            <h1 id="site-name"><a href="/admin/">{{ who }} </a></h1>
         </div>
-        
-        
     </div>
     <!-- END Header -->
-
-    <!-- Content -->
+    
+<!-- Content -->
     <div id="content" class="colM">
-<form method='POST' action=''>{% csrf_token %}        
+        <form method='POST' action=''>{% csrf_token %}        
 {{ form.as_p }}        
 
 
-<input type="submit" value = "Send" />
+<input type="submit" value = "SignUp" />
 </form>
-<meta name="robots" content="NONE,NOARCHIVE" />
-</head>
-
 
 <div id="content-main">
 
@@ -66,4 +53,3 @@ document.getElementById('id_username').focus()
 
 </body>
 </html>
-

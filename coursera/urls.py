@@ -35,5 +35,10 @@ urlpatterns = [
     url(r'^register/(\d+)/','app.views.RegInCourse',name='RegInCourse'),
     url(r'^edit/(\d+)/','app.views.edit_course',name='edit_course'),
     url(r'^sendmail/','app.views.sendmail',name='sendmail'),
+    url(r'^quizform/','app.views.quizform',name='quizform'),
+    url(r'^shownotif/','app.views.shownotif',name='notif'),
+    url(r'^about/','app.views.about',name='about'),
+    url(r'^contact/','app.views.contact',name='contact'),
+    url(r'^parent/','app.views.parent',name='parent'),
     # url(r'^create_content/(\d+)/','app.views.addContent',name='addContent'),
 ]

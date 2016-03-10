@@ -98,7 +98,7 @@ def facultySignUp(request):
         if form.is_valid():
             user = User.objects.create_user(form.cleaned_data.get('email'),form.cleaned_data.get('email'),form.cleaned_data.get('password'))
             form.save()
-            return HttpResponse("Your request has been sent" )
+            return HttpResponseRedirect('/')
         else:
             return HttpResponse("Email Id or Phone no. has been already Registered (Validation Failed)")
         # context = {
@@ -147,8 +147,7 @@ def facultySignUp(request):
 #         context = {
 #         "form": form,
 #         }
-#         return render(request,"app/studentSignUp.html",context)
-
+#         return rend
 def login_user(request):
     # user2 = User.objects.create_user('admin@gmail.com','admin@gmail.com','admin')
     logout(request)
@@ -348,6 +347,57 @@ def faculty(request):
         "faculty" : faculty,
     }
     return render_to_response('app/faculty.html',faculty_data)
+
+def shownotif(request):
+    try:
+        students= Student.objects.get(email=request.user.username)
+        if students is not None:
+            mails=Notif.objects.filter(notif_to_id=students.ID).filter(notif_to_role='S')
+            context={
+                "mail" : mails,
+            }
+            return render_to_response('app/notif.html',context)
+
+    except:
+        faculty=Faculty.objects.get(email=request.user.username)
+        mails=Notif.objects.filter(notif_to_id=faculty.ID).filter(notif_to_role='F')
+        context={
+            "mail": mails,
+        }
+        return render_to_response('app/notif.html',context)
+
+def about(request):
+    context={
+
+    }
+    return render_to_response('app/about.html',context)
+
+def contact(request):
+    context={
+
+    }
+    return render_to_response('app/contact.html',context)
+
+def parent(request):
+    if request.POST:
+        username = request.POST['username']
+        print "HOOOOOOOOOOOOOOOO"
+        student=Student.objects.get(email=username)
+        course=Course.objects.filter(student=student)
+        if student is not None:
+            context={
+            "student" : student,
+            "course" : course,
+            }
+            return render_to_response('app/parenthome.html',context)
+
+    else:
+        form = ParentSignInForm()
+        print "Coming there"
+        context = {
+        "form": form,
+        }
+        return render(request,"app/ParentSignIn.html",context)
 
 # def addContent(request,cid):
 #     user = request.user
