@@ -4,7 +4,7 @@ from django.db import models
 
 # Create your models here.
 # '''
-
+#yahan pe change kiya hai dekhne ke liye 
 class Person(models.Model):
 	ID = models.AutoField(primary_key=True)
 	password = models.CharField(max_length = 20)
